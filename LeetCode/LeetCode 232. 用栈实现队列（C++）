@@ -1,0 +1,68 @@
+232. 用栈实现队列
+
+题目描述：
+
+  使用栈实现队列的下列操作：
+  push(x) -- 将一个元素放入队列的尾部。
+  pop() -- 从队列首部移除元素。
+  peek() -- 返回队列首部的元素。
+  empty() -- 返回队列是否为空。
+
+主要思路：
+
+  入队时
+
+    1.直接push到inStack中
+
+出队时
+
+    1.如果outStack为空，先把inStack所有元素逐一弹出，push到outStack，最后弹出outStack的栈顶元素
+    2.如果outStack不为空，直接弹出outStack的栈顶元素
+
+代码如下：
+
+class MyQueue {
+public:
+    stack<int> inStack;
+    stack<int> outStack;
+    
+    MyQueue() {
+
+    }
+    
+    void push(int x) {
+        inStack.push(x);
+    }
+    
+    int pop() {
+        cheak();
+        int a=outStack.top();
+        outStack.pop();
+        return a;
+    }
+
+    int peek() {
+        cheak();
+        return outStack.top();
+    }
+    
+
+    bool empty() {
+        return inStack.empty()&&outStack.empty();
+    }
+
+    void cheak()
+    {
+        if(outStack.empty())
+        {
+            while(!inStack.empty())
+            {
+                outStack.push(inStack.top());
+                inStack.pop();
+            }
+
+        }
+    }
+};
+
+执行结果：双100%
